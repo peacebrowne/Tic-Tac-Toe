@@ -1,0 +1,96 @@
+#parentDiv {
+    width: 800px;
+    height: 570px;
+    background: blue;
+    margin: 100px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#infoDiv {
+    width: 400px;
+    height: 350px;
+    border: 2px solid black;
+    text-align: center;
+}
+
+#infoDiv p{
+    margin: 2px 7px;
+}
+
+#gameDiv {
+    width: 306px;
+    height: auto;
+    display: none;
+}
+table {
+    margin: 50px auto;
+    border: 2px solid #000000;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+.box {
+    width: 100px;
+    height: 50px;
+    border: 1px solid black;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+}
+#youDraw{
+    display: none;
+}
+
+#score{
+    display: none;
+}
+
+#stBtn {
+    padding: 7px;
+    background: green;
+    color: white;
+    font-weight: bold;
+}
+#playAginBtn{
+    display: none;
+    padding: 7px;
+    background: green;
+    color: white;
+    font-weight: bold;
+    margin: 0px 3px;
+}
+#restartBtn{
+    display: none;
+    padding: 7px;
+    background: green;
+    color: white;
+    font-weight: bold;
+    margin: 0px 3px;
+}
+summary{
+    text-align: center;
+}
+.chartToPlayWith{
+    padding: 15px;
+    height: auto;
+    border: 1px solid black;
+}
+.chartToPlayWith:hover{
+    cursor: pointer;
+}
+#youWin{
+    display: none;
+}
+#youLoose{
+    display: none;
+}
+
+footer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+

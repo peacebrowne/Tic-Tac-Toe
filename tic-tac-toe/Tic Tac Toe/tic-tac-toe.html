@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="Tic-Tac-Toe.css">
+    <title>Tic-Tac-Toe</title>
+</head>
+<body>
+    <div id="parentDiv">
+        <header>
+            <h2>Welcome to my Tic-Tac-Toe Game</h2>
+        </header>   
+        <div id="score">
+            <h3 id="winScore">User : <span></span> </h3>
+            <h3 id="looseScore">Conputer : <span></span></h3>
+        </div>
+        <summary>
+            <div id="infoDiv">
+                <h3>Details</h3>
+                <p>
+                    Tic Tac Toe is bassically a two person game where you try to beat your opponent be marching
+                    three boxed out of nine provided boxes, and the other tries to block your move while 
+                    trying to beat you too.
+                </p>
+                <h3>How to play the Game</h3>
+                <p>
+                    There are going to be nine empty boxes provided
+                    and you are to click on any of the boxes. Click the button below to start the game
+                </p>
+                <h3>Choose the character to play with:</h3>
+                <span class="chartToPlayWith x"><b>x</b></span> <span>/</span> <span class="chartToPlayWith o"><b>o</b></span>
+            </div>
+           <div  id="gameDiv">
+            <table>
+                <tr>
+                    <td class="box"></td>
+                    <td class="box"></td>
+                    <td class="box"></td>
+                </tr>
+                <tr>
+                    <td class="box"></td>
+                    <td class="box"></td>
+                    <td class="box"></td>
+                </tr>
+                <tr>
+                    <td class="box"></td>
+                    <td class="box"></td>
+                    <td class="box"></td>
+                </tr>
+            </table>
+           </div>
+           <div id="youWin">
+               <h1>You win!!</h1>
+           </div>
+           <div id="youLoose">
+            <h1>Computer Wins!!</h1>
+           </div>
+           <div id="youDraw">
+            <h1>Game Draw!!</h1>
+           </div>
+        </summary>
+
+        <footer>
+            <button id="stBtn">Start</button>
+            <button id="playAginBtn">Play Again</button>
+            <button id="restartBtn">Restart</button>
+        </footer>
+    </div>
+    <script src="tic-tac-toe.js">
+       
+
+    </script>
+</body>
+</html>
