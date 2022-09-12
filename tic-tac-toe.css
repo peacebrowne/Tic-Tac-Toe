@@ -1,16 +1,18 @@
 body{
-    background-color: whitesmoke;
+    background-color: #FFFECC;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 #parentDiv {
     width: 800px;
-    height: 570px;
-    background: blue;
-    margin: 100px auto;
+    height: 590px;
+    background: #FFD2CF;
+    margin: 70px auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+    border-radius: 20px;
+    padding-bottom: 20px;
 }
 
 #infoDiv {
@@ -34,6 +36,7 @@ table {
     border: 2px solid #000000;
     border-collapse: collapse;
     background-color: white;
+    height: 100%;
 }
 
 .box {
@@ -52,28 +55,32 @@ table {
     display: none;
 }
 
-#stBtn {
-    padding: 7px;
+button{
+    width: 100px;
     background: green;
     color: white;
     font-weight: bold;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 1px 3px 2px black;
 }
+
+#stBtn {
+    padding: 7px;
+    margin: 0 auto;
+}
+   
 #playAginBtn{
     display: none;
     padding: 7px;
-    background: green;
-    color: white;
-    font-weight: bold;
     margin: 0px 3px;
 }
 #restartBtn{
     display: none;
     padding: 7px;
-    background: green;
-    color: white;
-    font-weight: bold;
     margin: 0px 3px;
 }
+
 summary{
     text-align: center;
 }
@@ -93,8 +100,12 @@ summary{
 }
 
 footer{
-    width: 100%;
+    width: 30%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
 }
+
+/* #messages{
+    background-color: orangered;
+} */
 
