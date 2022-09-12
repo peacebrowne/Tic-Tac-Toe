@@ -75,7 +75,7 @@ let user_score = 0
 const user_win = ev =>{
 
     ev.target.textContent = player
-    ev.target.style.backgroundColor = 'green'
+    ev.target.style.backgroundColor = '#04AA6D'
     let r = win_condition.some(val => val.every(i => boxes[i].textContent == player))
     if(r) {
         score.firstElementChild.firstElementChild.textContent = user_score += 1;
@@ -99,7 +99,7 @@ const computer_win = () =>{
     if(boxes[rn].textContent != '')  computer_win()
     else {
         boxes[rn].textContent = computer;
-        boxes[rn].style.backgroundColor = 'red'
+        boxes[rn].style.backgroundColor = 'rgb(170, 17, 17)'
         let r = win_condition.some(val => val.every(i => boxes[i].textContent == computer))
         if(r) {
             score.lastElementChild.firstElementChild.textContent = computer_score += 1;
