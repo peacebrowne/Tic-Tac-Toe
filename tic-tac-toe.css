@@ -1,3 +1,7 @@
+body{
+    background-color: whitesmoke;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
 #parentDiv {
     width: 800px;
     height: 570px;
