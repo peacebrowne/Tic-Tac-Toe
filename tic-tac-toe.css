@@ -16,14 +16,20 @@ body{
 }
 
 #infoDiv {
-    width: 400px;
-    height: 350px;
+    width: 500px;
+    height: auto;
     border: 2px solid black;
     text-align: center;
 }
 
 #infoDiv p{
     margin: 2px 7px;
+}
+.info{
+    padding: 15px auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 #gameDiv {
@@ -85,12 +91,32 @@ summary{
     text-align: center;
 }
 .chartToPlayWith{
+    width: 50px;
     padding: 15px;
     height: auto;
     border: 1px solid black;
 }
 .chartToPlayWith:hover{
     cursor: pointer;
+    background-color: white;
+    color: black;
+}
+#char{
+    display: flex;
+    height: 100px;
+    flex-direction: column;
+}
+
+#level{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+select{
+    width: 200px;
+    height: 30px;
+    border: none;
+    outline: none;
 }
 #youWin{
     display: none;

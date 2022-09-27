@@ -15,36 +15,51 @@
         </section>
         <summary>
             <section id="infoDiv">
-                <h3>Details</h3>
-                <p>
-                    Tic Tac Toe is bassically a two person game where you try to beat your opponent be marching
-                    three boxed out of nine provided boxes, and the other tries to block your move while 
-                    trying to beat you too.
-                </p>
-                <h3>How to play the Game</h3>
-                <p>
-                    There are going to be nine empty boxes provided
-                    and you are to click on any of the boxes. Click the button below to start the game
-                </p>
-                <h3>Choose the character to play with:</h3>
-                <span class="chartToPlayWith x"><b>x</b></span> <span>/</span> <span class="chartToPlayWith o"><b>o</b></span>
+               <div class="info">
+                    <h3>Details</h3>
+                    <p>
+                        Tic Tac Toe is bassically a two person game where you try to beat your opponent be marching
+                        three boxed out of nine provided boxes, and the other tries to block your move while 
+                        trying to beat you too.
+                    </p>
+               </div>
+                <div class="info">
+                    <h3>How to play the Game</h3>
+                    <p>
+                        There are going to be nine empty boxes provided
+                        and you are to click on any of the boxes. Click the button below to start the game
+                    </p>
+                </div>
+                <div id="char">
+                    <h3>Choose the character to play with:</h3>
+                    <div>
+                        <span class="chartToPlayWith x"><b>x</b></span> <span>/</span> <span class="chartToPlayWith o"><b>o</b></span>
+                    </div>
+                </div>
+                <div id="level">
+                    <h3>Please Select Level:</h3>
+                    <select>
+                        <option value="easy">Easy</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                </div>
             </section>
            <section  id="gameDiv">
             <table>
                 <tr>
-                    <td class="box"></td>
-                    <td class="box"></td>
-                    <td class="box"></td>
+                    <td class="box" id="0"></td>
+                    <td class="box" id="1"></td>
+                    <td class="box" id="2"></td>
                 </tr>
                 <tr>
-                    <td class="box"></td>
-                    <td class="box"></td>
-                    <td class="box"></td>
+                    <td class="box" id="3"></td>
+                    <td class="box" id="4"></td>
+                    <td class="box" id="5"></td>
                 </tr>
                 <tr>
-                    <td class="box"></td>
-                    <td class="box"></td>
-                    <td class="box"></td>
+                    <td class="box" id="6"></td>
+                    <td class="box" id="7"></td>
+                    <td class="box" id="8"></td>
                 </tr>
             </table>
            </section>

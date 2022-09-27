@@ -8,10 +8,13 @@ const restartBtn = document.getElementById('restartBtn')
 const you_win = document.getElementById('youWin')
 const youLoose = document.getElementById('youLoose')
 const youDraw = document.getElementById('youDraw')
+const selectLevels = document.querySelector('select')
 startBtn.addEventListener('click',displayIn)
    
+let level;
 
 function displayIn(){
+    level = selectLevels.value;
     infoDiv.style.display = 'none'
     startBtn.style.display = 'none'
     gameDiv.style.display = 'block';
@@ -43,23 +46,108 @@ const boxes = document.querySelectorAll('.box')
 boxes.forEach(box => {
     box.addEventListener('click',ev =>{
 
-        let check = checked(ev)
-        if(check == 'checked')return;
-
-        let win = user_win(ev)
-        if(win == 'win') return;
-
-    
-        // game_draw()
-        let draw = game_draw()
-        if(draw == 'draw')return;
-    
-
-        let loose = computer_win()
-        if(loose == 'loose')return
+        if (level === 'easy') {
+            
+            let play = user_play(box)
+            if (play) return;
+            else {
+                let win = easy()
+                if (win) return;
+            };
+            
+        }
 
     })
 })
+
+// funtion display user play
+const user_play = box =>{
+   
+    // if user selected box is not empty, user should play
+    if (box.textContent === '') {
+
+        box.textContent = player
+        box.style.backgroundColor = '#04AA6D'
+        let win = user_win()
+        if(win) return true
+        return false
+        
+    }
+    // else alert user to select another box and return true
+    else{
+        alert('Please select an empty box')
+        return true
+    }
+
+}
+
+
+// function for computer easy level.
+const easy = () =>{
+
+    let count = 0;
+    for (let i = 0; i < boxes.length; i++) {
+        if(boxes[i].textContent != '') count++        
+    }
+    if(count === boxes.length) return;
+
+    // getting random number
+    let rn = random()
+
+    // if computer selected random box is empty, computer plays in it.
+    if (boxes[rn].textContent === '') {
+        boxes[rn].textContent = computer;
+        boxes[rn].style.backgroundColor = 'rgb(170, 17, 17)'
+        let win = computer_win()
+        if (win) return true;
+        return false;
+    }
+    else{
+        easy()
+        
+    }
+
+}
+
+const computer_win = () => {
+
+    let result = win_condition.some(val => val.every(i => boxes[i].textContent === computer))
+    if(result) {
+        // score.lastElementChild.firstElementChild.textContent = computer_score += 1;
+        alert('computer win')
+        return true;
+    }else return false;
+
+}
+
+const user_win = () => {
+
+    let result = win_condition.some(val => val.every(i => boxes[i].textContent == player))
+    if(result) {
+        // score.firstElementChild.firstElementChild.textContent = user_score += 1;
+        alert('user win')
+        return true;
+    }else return false;
+
+}
+
+
+   
+
+// let check = checked(ev)
+        // if(check == 'checked')return;
+
+        // let win = user_win(ev)
+        // if(win == 'win') return;
+
+    
+        // // game_draw()
+        // let draw = game_draw()
+        // if(draw == 'draw')return;
+    
+
+        // let loose = computer_win()
+        // if(loose == 'loose')return
 
 const checked = ev =>{
     
@@ -70,44 +158,25 @@ const checked = ev =>{
 }
 
 // let result=[]
-let user_score = 0
+// let user_score = 0
+// let user_box,computer_box;
 
-const user_win = ev =>{
-
-    ev.target.textContent = player
-    ev.target.style.backgroundColor = '#04AA6D'
-    let r = win_condition.some(val => val.every(i => boxes[i].textContent == player))
-    if(r) {
-        score.firstElementChild.firstElementChild.textContent = user_score += 1;
-        you_win.style.display = 'block'
-        return 'win';
-    }
-}
+// const user_win = ev =>{
+//     user_box = ev.target.id;
+//     ev.target.textContent = player
+//     ev.target.style.backgroundColor = '#04AA6D'
+//     let result = win_condition.some(val => val.every(i => boxes[i].textContent == player))
+//     if(result) {
+//         score.firstElementChild.firstElementChild.textContent = user_score += 1;
+//         you_win.style.display = 'block'
+//         return 'win';
+//     }
+// }
 
 const random = () =>{
 
-    let rn = Math.floor(Math.random() * boxes.length)
-    return rn
+    return Math.floor(Math.random() * boxes.length)
 
-}
-
-let computer_score = 0;
-const computer_win = () =>{
-   
-    let rn = random()
-
-    if(boxes[rn].textContent != '')  computer_win()
-    else {
-        boxes[rn].textContent = computer;
-        boxes[rn].style.backgroundColor = 'rgb(170, 17, 17)'
-        let r = win_condition.some(val => val.every(i => boxes[i].textContent == computer))
-        if(r) {
-            score.lastElementChild.firstElementChild.textContent = computer_score += 1;
-            youLoose.style.display = 'block'
-            return 'loose';
-        }
-    }
-    
 }
 
 const game_draw = () =>{
@@ -162,6 +231,6 @@ playAginBtn.addEventListener('click',()=>{
         box.textContent = '';
         box.style.backgroundColor = 'white'
     })
-   Array.of([youDraw,youLoose,you_win]).flat().forEach(x => x.style.display = 'none')
+   Array.of([youDraw,youLoose,you_win]).flat().forEach(msg => msg.style.display = 'none')
 
 })
