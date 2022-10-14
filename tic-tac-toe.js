@@ -14,8 +14,8 @@ const winScore = document.getElementById('winScore')
 const looseScore = document.getElementById('looseScore')
    
 
-let player;
-let computer;
+let player = 'x';
+let computer = 'o';
 
 let char = document.querySelectorAll('.chartToPlayWith')
 char.forEach(c => c.addEventListener('click',ev => {
