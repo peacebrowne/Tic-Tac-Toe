@@ -310,6 +310,7 @@ play_again.addEventListener('click',()=>{
         box.addEventListener('click', active_boxes)
     })
     display_message('')
+    player_count = 0;
 })
 
 let user_score = 0, computer_score = 0;
