@@ -277,7 +277,7 @@ const game_draw = () =>{
     let draw = Array.from(boxes).every(box => box.textContent != '')
     if (draw){
         removeListener()
-        console.log('DRAW')
+        display_message('DRAW')
         return true;
     };
 
