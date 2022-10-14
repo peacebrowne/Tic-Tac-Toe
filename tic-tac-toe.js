@@ -5,11 +5,29 @@ const play_again = document.getElementById('play_again')
 const start = document.getElementById('stBtn');
 const score = document.querySelector('#score')
 const restart = document.getElementById('restart')
-const you_win = document.getElementById('youWin')
-const youLoose = document.getElementById('youLoose')
-const youDraw = document.getElementById('youDraw')
+// const you_win = document.getElementById('youWin')
+// const youLoose = document.getElementById('youLoose')
+// const youDraw = document.getElementById('youDraw')
+const message = document.getElementById('msg')
 const selectLevels = document.querySelector('select')
+const winScore = document.getElementById('winScore')
+const looseScore = document.getElementById('looseScore')
    
+
+let player;
+let computer;
+
+let char = document.querySelectorAll('.chartToPlayWith')
+char.forEach(c => c.addEventListener('click',ev => {
+
+    char.forEach(d => d.style.backgroundColor = '')
+    c.style.backgroundColor = 'white'
+    player = c.textContent
+    if(player == 'o') computer = 'x';
+    else if(player == 'x') computer = 'o';
+
+}))
+
 let level;
 const win_condition = [
     [0,1,2],
@@ -22,7 +40,7 @@ const win_condition = [
     [2,4,6]
 ]
 
-function displayIn(){
+const displayIn = () => {
     level = selectLevels.value;
     infoDiv.style.display = 'none'
     start.style.display = 'none'
@@ -35,7 +53,7 @@ function displayIn(){
 start.addEventListener('click',displayIn)
 
 
-function displayOut() {
+const displayOut =() =>{
     score.style.display = 'none'
     gameDiv.style.display = 'none';
     restart.style.display = 'none'
@@ -44,38 +62,48 @@ function displayOut() {
     infoDiv.style.display = 'block';
 }
 
-// A function that restart the game
-function resetGame () {
-    location.reload()
-}
-
 let computer_box;
 let player_box;
 let counter = 0;
 let check_box = []
 
 const boxes = document.querySelectorAll('.box')
-boxes.forEach(box => {
-    box.addEventListener('click',ev =>{
+
+const active_boxes = ev =>{
+
+    let box = ev.target;
+    let check = checked(box);
+        if(check) return;
+
+        let play = user_play(box);
+        if (play) return
 
         if (level === 'easy') {
-            
-            let check = checked(box)
-            if(check) return
 
-            let play = user_play(box)
-            if (play) return;
-            else {
-                let win = easy()
-                if (win) return;
-            };
+            let loose = easy();
+            if (loose) return;
             
         }else{
-            hard(box)
-        }
+           let loose = hard(box);
+            if (loose) return;
+        };
 
+        let draw = game_draw()
+        if (draw) return;
+}
+
+const addListener = () =>{
+    boxes.forEach(box => {
+        box.addEventListener('click', active_boxes)
     })
-})
+}
+
+const removeListener = () =>{
+    boxes.forEach(box => {
+        box.removeEventListener('click', active_boxes)
+    })
+}
+addListener()
 
 // funtion marks user played box
 const user_play = box =>{
@@ -83,18 +111,18 @@ const user_play = box =>{
     // if user selected box is not empty, user should play
     if (box.textContent === '') {
 
-        box.textContent = player
-        box.style.backgroundColor = '#04AA6D'
+        box.textContent = player;
+        box.style.backgroundColor = '#04AA6D';
         player_box = +box.id;
-        let win = user_win()
-        if(win) return true
-        return false
+        let win = user_win();
+        if(win) return true;
+        return false;
         
     }
     // else alert user to select another box and return true
     else{
-        alert('Please select an empty box')
-        return true
+        alert('Please select an empty box');
+        return true;
     }
 
 }
@@ -102,7 +130,7 @@ const user_play = box =>{
 let player_count = 0;
 const hard = box => {
 
-    user_play(box)
+    // user_play(box)
     
     // checking if user has played for first time.
     if(player_count != 1) {
@@ -121,7 +149,8 @@ const hard = box => {
         return;
     }
     else {
-        computer_check_win_pos()
+        let win = computer_check_win_pos()
+        if (win) return true;
     }
 }
 
@@ -130,32 +159,33 @@ const computer_check_win_pos = () =>{
 
     let computer_boxes = win_condition.filter(val => val.includes(computer_box))
 
-            let count = 0;
-            let pos
+    let count = 0;
+    let pos
 
-        for (let a = 0; a < computer_boxes.length; a++) {
-            const winPos = computer_boxes[a];
+    for (let a = 0; a < computer_boxes.length; a++) {
+        const winPos = computer_boxes[a];
 
-            for (let i = 0; i < winPos.length; i++) {
-                    
-                if (boxes[winPos[i]].textContent.includes(computer))count++
-                else if(boxes[winPos[i]].textContent === '') pos = winPos[i]
-                else {
-                    count = 0;
-                    break;
-                }
+        for (let i = 0; i < winPos.length; i++) {
                 
+            if (boxes[winPos[i]].textContent.includes(computer))count++
+            else if(boxes[winPos[i]].textContent === '') pos = winPos[i]
+            else {
+                count = 0;
+                break;
             }
-
-            if (count === 2) {
-                boxes[pos].textContent = computer;
-                boxes[pos].style.backgroundColor = 'rgb(170, 17, 17)';
-                return
-            }
-            count = 0;
         }
-            let block = block_user() 
-            if (block) return
+
+        if (count === 2) {
+            boxes[pos].textContent = computer;
+            boxes[pos].style.backgroundColor = 'rgb(170, 17, 17)';
+            let win = computer_win()
+            if (win) return true;
+        }
+        count = 0;
+    }
+
+    let block = block_user() 
+    if (block) return
 
 }
 
@@ -186,7 +216,8 @@ const block_user = () =>{
         count = 0;
     }
 
-    easy()
+    let loose = easy()
+    if(loose) return true;
 }
 
 // function for computer easy level.
@@ -218,72 +249,56 @@ const easy = () =>{
 const computer_win = () => {
 
     let result = win_condition.some(val => val.every(i => boxes[i].textContent === computer))
-    if(result) {
-        alert('computer win')
+    if(result){
+        removeListener()
+        scoreBoard('YOU LOOSE')
+        display_message('YOU LOOSE')
         return true;
-    }else return false;
+    }
+    else return false;
 
 }
 
 const user_win = () => {
 
     let result = win_condition.some(val => val.every(i => boxes[i].textContent == player))
-    if(result) {
-        alert('user win')
+    if(result){
+        removeListener()
+        scoreBoard('YOU WIN')
+        display_message('YOU WIN')
         return true;
-    }else return false;
+    }
+    else return false;
+
+}
+
+const game_draw = () =>{
+
+    let draw = Array.from(boxes).every(box => box.textContent != '')
+    if (draw){
+        removeListener()
+        console.log('DRAW')
+        return true;
+    };
 
 }
 
 const checked = box =>{
     // if player checks a box twice alert them to play in another box
-    if(box.textContent != '') {
+    if(box.textContent != "") {
         alert('Please play in another box')
         return true;
     }
     else return false;    
-    
 }
 
 const random = () =>{
     return Math.floor(Math.random() * boxes.length)
 }
 
-const game_draw = () =>{
-
-    let count = 0;
-    boxes.forEach(box => {
-        if(box.textContent != '') count++
-    })
-
-    if(count === boxes.length){
-        if(youLoose.style.display == 'none' || youLoose.style.display == ''){
-            if(you_win.style.display == 'none' || you_win.style.display == ''){
-
-                youDraw.style.display = 'block'
-                return 'draw'
-
-            }
-        }
-    }
-}
-
-
+// A function that restart the game
+const resetGame = () => location.reload();
 restart.addEventListener('click',resetGame)
-
-let player;
-let computer;
-
-let char = document.querySelectorAll('.chartToPlayWith')
-char.forEach(c => c.addEventListener('click',ev => {
-
-    char.forEach(d => d.style.backgroundColor = '')
-    c.style.backgroundColor = 'white'
-    player = c.textContent
-    if(player == 'o') computer = 'x';
-    else if(player == 'x') computer = 'o';
-
-}))
 
 play_again.addEventListener('click',()=>{
 
@@ -291,6 +306,21 @@ play_again.addEventListener('click',()=>{
         box.textContent = '';
         box.style.backgroundColor = 'white'
     })
-   Array.of([youDraw,youLoose,you_win]).flat().forEach(msg => msg.style.display = 'none')
-
+    boxes.forEach(box => {
+        box.addEventListener('click', active_boxes)
+    })
+    display_message('')
 })
+
+let user_score = 0, computer_score = 0;
+winScore.textContent = user_score;
+looseScore.textContent = computer_score;
+
+const scoreBoard = msg =>{
+    if (msg === 'YOU WIN')winScore.textContent = ++user_score;
+    else if (msg === 'YOU LOOSE') looseScore.textContent = ++computer_score;
+}
+
+const display_message = msg =>{
+    message.textContent = msg;
+}
