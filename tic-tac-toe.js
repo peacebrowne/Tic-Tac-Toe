@@ -11,20 +11,25 @@ const youDraw = document.getElementById('youDraw')
 const selectLevels = document.querySelector('select')
    
 let level;
+const win_condition = [
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
+    [0,4,8],
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
+    [2,4,6]
+]
 
 function displayIn(){
     level = selectLevels.value;
-    if(level === ''){
-        alert('Please select playing symbol')
-        return;
-    }
-    console.log('start')
-    // infoDiv.style.display = 'none'
-    // start.style.display = 'none'
-    // gameDiv.style.display = 'block';
-    // play_again.style.display = 'block'
-    // score.style.display = 'block'
-    // restart.style.display = 'block'
+    infoDiv.style.display = 'none'
+    start.style.display = 'none'
+    gameDiv.style.display = 'block';
+    play_again.style.display = 'block'
+    score.style.display = 'block'
+    restart.style.display = 'block'
 }
 
 start.addEventListener('click',displayIn)
@@ -44,10 +49,10 @@ function resetGame () {
     location.reload()
 }
 
+let computer_box;
+let player_box;
 let counter = 0;
 let check_box = []
-
-
 
 const boxes = document.querySelectorAll('.box')
 boxes.forEach(box => {
@@ -66,7 +71,7 @@ boxes.forEach(box => {
             };
             
         }else{
-            hard()
+            hard(box)
         }
 
     })
@@ -80,6 +85,7 @@ const user_play = box =>{
 
         box.textContent = player
         box.style.backgroundColor = '#04AA6D'
+        player_box = +box.id;
         let win = user_win()
         if(win) return true
         return false
@@ -93,8 +99,94 @@ const user_play = box =>{
 
 }
 
-const hard = () => {
-    console.log('Hard Level')
+let player_count = 0;
+const hard = box => {
+
+    user_play(box)
+    
+    // checking if user has played for first time.
+    if(player_count != 1) {
+        player_count++
+
+        // checking if player plays in center box if true computer plays in first box else computer plays in center box
+        if(boxes[4].textContent.includes(player)){
+            boxes[0].textContent = computer
+            boxes[0].style.backgroundColor = 'rgb(170, 17, 17)'
+            computer_box = 0;
+        }else{
+            boxes[4].textContent = computer
+            boxes[4].style.backgroundColor = 'rgb(170, 17, 17)'  
+            computer_box = 4;
+        }
+        return;
+    }
+    else {
+        computer_check_win_pos()
+    }
+}
+
+// checking for computer winning position.
+const computer_check_win_pos = () =>{
+
+    let computer_boxes = win_condition.filter(val => val.includes(computer_box))
+
+            let count = 0;
+            let pos
+
+        for (let a = 0; a < computer_boxes.length; a++) {
+            const winPos = computer_boxes[a];
+
+            for (let i = 0; i < winPos.length; i++) {
+                    
+                if (boxes[winPos[i]].textContent.includes(computer))count++
+                else if(boxes[winPos[i]].textContent === '') pos = winPos[i]
+                else {
+                    count = 0;
+                    break;
+                }
+                
+            }
+
+            if (count === 2) {
+                boxes[pos].textContent = computer;
+                boxes[pos].style.backgroundColor = 'rgb(170, 17, 17)';
+                return
+            }
+            count = 0;
+        }
+            let block = block_user() 
+            if (block) return
+
+}
+
+const block_user = () =>{
+    let count = 0;
+    let pos
+
+    let player_boxes = win_condition.filter(val => val.includes(player_box))
+    for (let a = 0; a < player_boxes.length; a++) {
+        const blockPos = player_boxes[a];
+
+        for (let i = 0; i < blockPos.length; i++) {
+
+            if(boxes[blockPos[i]].textContent.includes(player)) count++
+            else if (boxes[blockPos[i]].textContent === '') pos = blockPos[i];
+            else {
+                count = 0;
+                break;
+            };
+
+        }
+
+        if (count === 2) {
+            boxes[pos].textContent = computer;
+            boxes[pos].style.backgroundColor = 'rgb(170, 17, 17)'
+            return true;
+        }
+        count = 0;
+    }
+
+    easy()
 }
 
 // function for computer easy level.
@@ -119,7 +211,6 @@ const easy = () =>{
     }
     else{
         easy()
-        
     }
 
 }
@@ -155,9 +246,7 @@ const checked = box =>{
 }
 
 const random = () =>{
-
     return Math.floor(Math.random() * boxes.length)
-
 }
 
 const game_draw = () =>{
@@ -179,16 +268,6 @@ const game_draw = () =>{
     }
 }
 
-const win_condition = [
-    [0,1,2],
-    [3,4,5],
-    [6,7,8],
-    [0,4,8],
-    [2,4,6],
-    [1,4,7],
-    [0,3,6],
-    [2,5,8]
-]
 
 restart.addEventListener('click',resetGame)
 
