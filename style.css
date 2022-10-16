@@ -1,0 +1,435 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Roboto:ital,wght@0,300;0,500;0,700;1,100&display=swap');
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto','Poppins';
+}
+
+main{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: 18px;
+    height: 100vh;
+    justify-content: space-evenly;
+    align-items: center;
+    overflow: hidden;
+    perspective: 100px;
+    position: relative;
+    text-align: center;
+    transform-style:preserve-3d;
+}
+
+.startBtn{
+    animation: startBtn 1s ease-in 1s forwards;
+    bottom: 15rem;
+    width: 13rem;
+    padding: 0.7rem;
+    border-radius: 10px;
+    border:none;
+    background-color: #0F4E63;
+    color: white;
+    box-shadow: 1px 1px 1px 1px darkgray;
+    opacity: 0;
+    cursor: pointer;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.banner{
+    height: 100vh;
+    animation: banner 1s ease-out 1s forwards;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5rem;
+    font-weight: 700;
+    color: #0F4E63;
+    opacity: 0;
+    top: 0;
+    right: 0;
+    bottom: 10rem;
+    left: 0;
+    z-index: 1;
+}
+
+main::after{
+    background-color: #0F4E63;
+    content: 'INSPIRED BY: KIT';
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 2rem;
+    padding-top: 1rem;
+    color: white;
+    font-size: x-small;
+    font-weight: 400;
+    width: 150vw;
+    height: 26rem;
+    position: absolute;
+    top: 80%;
+    right: 0;
+    left: 0;
+    transform: rotate(-4deg);
+    z-index: 10;
+}
+
+
+
+form{
+    visibility: visible;
+}
+
+.form{
+    animation: banner 0.8s ease-out 1s forwards;
+    z-index: 1;
+    opacity: 0;
+    width: 20rem;
+    padding: 2rem;
+    background-color: #FFFFFF;
+    border-radius: 7px;
+    box-shadow: 0px 0 10px darkgray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+input,select{
+    width: 100%;
+    padding: 0.8rem;
+    outline: none;
+    border: 1px solid darkgray;
+    border-radius: 7px;
+    color: #0F4E63;
+    margin: 0.3rem 0px;
+    background-color: white;
+}
+
+option{
+    text-transform: capitalize;
+    font-size: large;
+    color: #0F4E63;
+}
+
+::placeholder{
+    color: #0f4e63d3;
+}
+
+.char{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    padding: 0.4rem;
+    outline: none;
+    border-radius: 7px;
+    color: #0F4E63;
+    margin: 0.3rem 0px;
+    background-color: white;
+}
+
+.char span{
+    width: 3rem;
+    padding: 1rem;
+    outline: none;
+    border: 1px solid darkgray;
+    border-radius: 7px;
+    color: #0F4E63;
+    font-weight: 200;
+    margin: 0.3rem 0px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+label{
+    color: #0F4E63;
+    font-size: 13px;
+    margin-right: 0.3rem;
+}
+
+#game_box{
+    width: 50rem;
+    height: 75%;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    animation: gameBox 1s ease-out 1s forwards;
+    opacity: 0;
+    }
+
+.score{
+    width: 50%;
+    height: 100px;
+}
+
+ table {
+    width: 100%;
+    height: 100%;
+}
+
+.score table,.score table th,.score table td{
+    /* border: 2px solid #0F4E63; */
+    font-weight: 200;
+    border-collapse: collapse;
+    border-left: none;
+    border-right: none;
+    color: #0F4E63;
+    text-transform: uppercase;
+}
+
+.board{
+    width: 50%;
+    height: 20rem;
+}
+
+.box{
+    width: 50px;
+    height: 50px;
+    border: 2px solid #0F4E63;
+    font-weight: 200;
+    border-collapse: collapse;
+    color: #0F4E63;
+    text-transform: uppercase;
+}
+
+.board table td{
+    height: 30px;
+}
+
+.score table th{
+    padding: 0.5rem;
+    font-size: small;
+}
+
+.score table td{
+    font-weight: 700;
+    font-size: 3rem;
+}
+
+#box0{
+    border-top: none;
+    border-left: none;
+}
+
+#box1{
+    border-top: none;
+}
+
+#box2{
+    border-top: none;
+    border-right: none;
+}
+
+#box3{
+    border-left: none;
+}
+
+#box5{
+    border-right: none;
+}
+
+#box6{
+    border-bottom: none;
+    border-left: none;
+}
+
+#box7{
+    border-bottom: none;
+}
+
+#box8{
+    border-bottom: none;
+    border-right: none;
+}
+
+
+#msg{
+    animation: controls 1s ease-out 1s forwards;
+}
+
+#controls{
+    width: 50rem;
+    height: 10%;
+    margin: 0px auto;
+    padding: 3rem;
+    display: none;
+    justify-content: space-evenly;
+    align-items: center;
+    animation: controls 1s ease-out 1s forwards;
+    opacity: 0;
+    z-index: 10;
+    /* position: absolute;
+    top: 70%; */
+}
+
+#controls span{
+    font-size: small;
+    margin: -3rem 1rem 0px 1rem;
+    width: 100px;
+    font-weight: 200;
+    color: #0F4E63;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+@keyframes controls {
+    0%{
+        opacity: 0;
+        transform: translateX(-19rem);
+    }
+    100%{
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes banner {
+    0%{
+        opacity: 0;
+        transform: translateY(-4rem);
+    }
+    100%{
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes startBtn {
+    0%{
+        opacity: 0;
+        transform: translateY(4rem);
+    }
+    100%{
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes gameBox {
+    0%{
+        opacity: 0;
+        transform: translateX(19rem);
+    }
+    100%{
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .startBtn{
+        bottom: 10rem;
+    }
+    
+    .banner{
+        font-size: 2rem;
+        bottom: 5rem;
+    }
+
+    .form{
+        width: 80%;
+        /* top: 4rem; */
+    }
+
+    input,select,::placeholder,label{
+        font-size: 12px;
+    } 
+
+    #game_box{
+        width: 80%;
+        /* height: 50rem; */
+        padding: 0.4rem;
+    }
+
+    .score{
+        width: 90%;
+        margin-bottom: 3rem;
+    }
+
+    .board{
+        width: 100%;
+        height: 20rem;
+    }
+
+    main::after{
+        height: 16rem;
+        top: 90%;
+    }
+
+    #controls{
+        width: 100%;
+        padding: 0px;
+    }
+
+}
+
+@media only screen and (min-width:481px) and (max-width: 768px) { 
+    .banner{
+        font-size: 3rem;
+        bottom: 5rem;
+    }
+    main::after{
+        height: 16rem;
+        top: 90%;
+    }
+
+
+    .form{
+        width: 70%;
+        top: 4rem;
+    }
+    input,select{
+        padding: 1.5rem;
+        margin: 0.6rem;
+        font-size: large;
+    } 
+
+    ::placeholder{
+        font-size: large;
+    }
+
+    label{
+        font-size: large;
+    }
+    .char span{
+        width: 4rem;
+        margin-bottom: 1rem;
+    }
+
+    .startBtn{
+        width: 15rem;
+        padding: 1rem;
+        bottom: 9rem;
+    } 
+
+    #game_box{
+        width: 70%;
+        height: 80%;
+        padding: 0px;
+    }
+
+    .score{
+        width: 100%;
+        font-size: large;
+    }
+
+
+    .board{
+        width: 100%;
+    }
+
+    #controls{
+        width: 100%;
+        top: 80%;
+    }
+    
+}
+.winBox{
+    background-color: #0F4E63;
+    color: white;
+    font-weight: 700;
+}

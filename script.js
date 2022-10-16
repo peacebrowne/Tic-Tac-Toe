@@ -1,34 +1,11 @@
+const startBtn = document.querySelector('.startBtn');
+const form = document.querySelector('form');
+const controls = document.getElementById('controls')
+const winScore = document.getElementById('userscore')
+const looseScore = document.getElementById('computerscore')
+const message = document.querySelector('#msg span')
+const player_name = document.getElementById('username')
 
-const infoDiv = document.querySelector('#infoDiv');
-const gameDiv = document.querySelector('#gameDiv')
-const play_again = document.getElementById('play_again')
-const start = document.getElementById('stBtn');
-const score = document.querySelector('#score')
-const restart = document.getElementById('restart')
-// const you_win = document.getElementById('youWin')
-// const youLoose = document.getElementById('youLoose')
-// const youDraw = document.getElementById('youDraw')
-const message = document.getElementById('msg')
-const selectLevels = document.querySelector('select')
-const winScore = document.getElementById('winScore')
-const looseScore = document.getElementById('looseScore')
-   
-
-let player = 'x';
-let computer = 'o';
-
-let char = document.querySelectorAll('.chartToPlayWith')
-char.forEach(c => c.addEventListener('click',ev => {
-
-    char.forEach(d => d.style.backgroundColor = '')
-    c.style.backgroundColor = 'white'
-    player = c.textContent
-    if(player == 'o') computer = 'x';
-    else if(player == 'x') computer = 'o';
-
-}))
-
-let level;
 const win_condition = [
     [0,1,2],
     [3,4,5],
@@ -40,34 +17,93 @@ const win_condition = [
     [2,4,6]
 ]
 
-const displayIn = () => {
-    level = selectLevels.value;
-    infoDiv.style.display = 'none'
-    start.style.display = 'none'
-    gameDiv.style.display = 'block';
-    play_again.style.display = 'block'
-    score.style.display = 'block'
-    restart.style.display = 'block'
+const start_game = () => {
+
+        play_game()
+        startBtn.style.display = 'none';
+        form.style.display = 'none';
+        game_box.style.display = 'flex';
+        controls.style.display = 'flex'
+    
+}
+startBtn.addEventListener('click', start_game)
+
+const game_box = document.getElementById('game_box')
+const boxes = document.querySelectorAll('.box')
+
+let level;
+const play_game = () =>{
+
+    if(form.children[0].value === ''){
+        alert('Please Enter Your Username')
+        return;
+    }
+    player_name.textContent = form.children[0].value;
+
+    if(form.children[1].value.includes('Please Select Your Level'))level = 'easy'
+    else level = form.children[1].value;
+    
 }
 
-start.addEventListener('click',displayIn)
+let player = 'x';
+let computer = 'o';
+
+const characters = document.querySelectorAll('.char span')
+characters.forEach(char => {
+    char.addEventListener('click', () =>{
+        characters.forEach(c => c.style = 'backgroundColor: white; color:#0F4E63;')
+        char.style = 'background-color: #0F4E63; color:white; font-weight: 700;'
+        player = char.dataset.value;
+        if(player == 'o') computer = 'x';
+    })
+})
+
+const back = document.getElementById('back')
+const play_again = document.getElementById('play_again')
+const restart = document.getElementById('restart')
 
 
-const displayOut =() =>{
-    score.style.display = 'none'
-    gameDiv.style.display = 'none';
-    restart.style.display = 'none'
-    play_again.style.display = 'none'
-    start.style.display = 'block'
-    infoDiv.style.display = 'block';
+
+const form_back = () =>{
+    controls.style.display = 'none'
+    game_box.style.display = 'none'
+    form.style.display = 'flex'
+    startBtn.style.display = 'block'
+    reinitializ()
+    winScore.textContent = 0
+    looseScore.textContent = 0;
+    player_count = 0;
+    user_score = 0, 
+    computer_score = 0;
+
 }
+
 
 let computer_box;
 let player_box;
 let counter = 0;
 let check_box = []
 
-const boxes = document.querySelectorAll('.box')
+
+// A function that restart the game
+const resetGame = () => location.reload();
+
+const reinitializ = () =>{
+
+    boxes.forEach(box => {
+        box.textContent = '';
+        box.style.backgroundColor = 'white'
+    })
+    boxes.forEach(box => {
+        box.addEventListener('click', active_boxes)
+    })
+    display_message('')
+    player_count = 0;
+}
+
+play_again.addEventListener('click', reinitializ)
+restart.addEventListener('click', resetGame)
+
 
 const active_boxes = ev =>{
 
@@ -112,8 +148,7 @@ const user_play = box =>{
     if (box.textContent === '') {
 
         box.textContent = player;
-        box.style.backgroundColor = '#04AA6D';
-        player_box = +box.id;
+        player_box = +box.dataset.value;
         let win = user_win();
         if(win) return true;
         return false;
@@ -130,8 +165,6 @@ const user_play = box =>{
 let player_count = 0;
 const hard = box => {
 
-    // user_play(box)
-    
     // checking if user has played for first time.
     if(player_count != 1) {
         player_count++
@@ -139,11 +172,9 @@ const hard = box => {
         // checking if player plays in center box if true computer plays in first box else computer plays in center box
         if(boxes[4].textContent.includes(player)){
             boxes[0].textContent = computer
-            boxes[0].style.backgroundColor = 'rgb(170, 17, 17)'
             computer_box = 0;
         }else{
             boxes[4].textContent = computer
-            boxes[4].style.backgroundColor = 'rgb(170, 17, 17)'  
             computer_box = 4;
         }
         return;
@@ -153,6 +184,7 @@ const hard = box => {
         if (win) return true;
     }
 }
+
 
 // checking for computer winning position.
 const computer_check_win_pos = () =>{
@@ -177,7 +209,8 @@ const computer_check_win_pos = () =>{
 
         if (count === 2) {
             boxes[pos].textContent = computer;
-            boxes[pos].style.backgroundColor = 'rgb(170, 17, 17)';
+            computer_box = pos
+            // show_win_boxes(winPos)
             let win = computer_win()
             if (win) return true;
         }
@@ -210,7 +243,8 @@ const block_user = () =>{
 
         if (count === 2) {
             boxes[pos].textContent = computer;
-            boxes[pos].style.backgroundColor = 'rgb(170, 17, 17)'
+            computer_box = pos
+            // boxes[pos].style.backgroundColor = 'rgb(170, 17, 17)'
             return true;
         }
         count = 0;
@@ -235,7 +269,7 @@ const easy = () =>{
     // if computer selected random box is empty, computer plays in it.
     if (boxes[rn].textContent === '') {
         boxes[rn].textContent = computer;
-        boxes[rn].style.backgroundColor = 'rgb(170, 17, 17)'
+        computer_box = rn
         let win = computer_win()
         if (win) return true;
         return false;
@@ -296,23 +330,6 @@ const random = () =>{
     return Math.floor(Math.random() * boxes.length)
 }
 
-// A function that restart the game
-const resetGame = () => location.reload();
-restart.addEventListener('click',resetGame)
-
-play_again.addEventListener('click',()=>{
-
-    boxes.forEach(box => {
-        box.textContent = '';
-        box.style.backgroundColor = 'white'
-    })
-    boxes.forEach(box => {
-        box.addEventListener('click', active_boxes)
-    })
-    display_message('')
-    player_count = 0;
-})
-
 let user_score = 0, computer_score = 0;
 winScore.textContent = user_score;
 looseScore.textContent = computer_score;
@@ -325,3 +342,16 @@ const scoreBoard = msg =>{
 const display_message = msg =>{
     message.textContent = msg;
 }
+
+const show_win_boxes = win_boxes =>{
+    win_boxes.forEach(box =>{
+        boxes[box].classList.add('winBox')
+    })
+
+}
+
+window.addEventListener('load',()=>{
+    setTimeout({
+        
+    })
+})
