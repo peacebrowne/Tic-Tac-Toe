@@ -62,8 +62,6 @@ const back = document.getElementById('back')
 const play_again = document.getElementById('play_again')
 const restart = document.getElementById('restart')
 
-
-
 const form_back = () =>{
     controls.style.display = 'none'
     game_box.style.display = 'none'
@@ -77,7 +75,6 @@ const form_back = () =>{
     computer_score = 0;
 
 }
-
 
 let computer_box;
 let player_box;
@@ -217,12 +214,12 @@ const computer_check_win_pos = () =>{
         count = 0;
     }
 
-    let block = block_user() 
+    let block = block_user(computer_boxes) 
     if (block) return
 
 }
 
-const block_user = () =>{
+const block_user = (result) =>{
     let count = 0;
     let pos
 
@@ -249,9 +246,30 @@ const block_user = () =>{
         }
         count = 0;
     }
+    computer_play_pos(result)
+}
 
-    let loose = easy()
-    if(loose) return true;
+const computer_play_pos = result =>{
+    let count = []
+    for (let i = 0; i < result.length; i++) {
+        
+        for (let a = 0; a < result[i].length; a++) {
+
+            const box = result[i][a];
+            if(boxes[box].textContent === '') count.push(box)
+            
+        }
+        
+        if(count.length === 2){
+            boxes[count[0]].textContent = computer;
+            // computer_box = +boxes[count[1]].dataset.value
+            // let win = computer_win()
+            return true;
+        }
+
+        count = [];
+    }
+
 }
 
 // function for computer easy level.

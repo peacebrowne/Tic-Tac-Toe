@@ -7,7 +7,13 @@
     font-family: 'Roboto','Poppins';
 }
 
+body{
+    height: 100vh;
+}
+
 main{
+    width: 100%;
+    background-color: #0F4E63;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -29,9 +35,10 @@ main{
     padding: 0.7rem;
     border-radius: 10px;
     border:none;
-    background-color: #0F4E63;
-    color: white;
-    box-shadow: 1px 1px 1px 1px darkgray;
+    background-color: white;
+    color:  #0F4E63;
+    /* box-shadow: 1px 1px 1px 1px #0F4E63; */
+    box-shadow: 0px 0 10px darkgray;
     opacity: 0;
     cursor: pointer;
     font-weight: 700;
@@ -55,7 +62,7 @@ main{
     z-index: 1;
 }
 
-main::after{
+/* main::after{
     background-color: #0F4E63;
     content: 'INSPIRED BY: KIT';
     display: flex;
@@ -73,7 +80,7 @@ main::after{
     left: 0;
     transform: rotate(-4deg);
     z-index: 10;
-}
+} */
 
 
 
@@ -142,6 +149,7 @@ option{
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 label{
@@ -177,7 +185,7 @@ label{
     border-collapse: collapse;
     border-left: none;
     border-right: none;
-    color: #0F4E63;
+    color: white;
     text-transform: uppercase;
 }
 
@@ -186,13 +194,16 @@ label{
     height: 20rem;
 }
 
+
+
 .box{
     width: 50px;
     height: 50px;
-    border: 2px solid #0F4E63;
-    font-weight: 200;
+    border: 2px solid white;
     border-collapse: collapse;
-    color: #0F4E63;
+    color: white;
+    font-weight: 700;
+    font-size: larger;
     text-transform: uppercase;
 }
 
@@ -209,7 +220,12 @@ label{
     font-weight: 700;
     font-size: 3rem;
 }
-
+/* .user{
+    color:  #FDBF00 
+}
+.computer{
+    color: #FF4949 ;
+} */
 #box0{
     border-top: none;
     border-left: none;
@@ -271,7 +287,7 @@ label{
     margin: -3rem 1rem 0px 1rem;
     width: 100px;
     font-weight: 200;
-    color: #0F4E63;
+    color: white;
     text-transform: capitalize;
     cursor: pointer;
 }
@@ -433,3 +449,4 @@ label{
     color: white;
     font-weight: 700;
 }
+
