@@ -89,7 +89,7 @@ const reinitializ = () =>{
 
     boxes.forEach(box => {
         box.textContent = '';
-        box.style.backgroundColor = 'white'
+        box.style.backgroundColor = ''
     })
     boxes.forEach(box => {
         box.addEventListener('click', active_boxes)
@@ -137,7 +137,6 @@ const removeListener = () =>{
     })
 }
 addListener()
-
 // funtion marks user played box
 const user_play = box =>{
    
