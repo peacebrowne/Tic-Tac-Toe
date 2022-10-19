@@ -245,7 +245,9 @@ const block_user = (result) =>{
         }
         count = 0;
     }
-    computer_play_pos(result)
+    let win = easy()
+    if (win) return true;
+    // computer_play_pos(result)
 }
 
 const computer_play_pos = result =>{
