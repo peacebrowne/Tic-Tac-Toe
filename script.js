@@ -117,7 +117,7 @@ const active_boxes = ev =>{
             if (loose) return;
             
         }else{
-           let loose = hard(box);
+           let loose = medium(box);
             if (loose) return;
         };
 
@@ -159,7 +159,7 @@ const user_play = box =>{
 }
 
 let player_count = 0;
-const hard = box => {
+const medium = box => {
 
     // checking if user has played for first time.
     if(player_count != 1) {
